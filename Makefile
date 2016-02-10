@@ -11,8 +11,8 @@ deps:
 	go get -u github.com/tools/godep
 
 build: clean deps
-	GOOS=linux GOARCH=amd64 CGO_ENABLED=0 godep go build ./...
-	GOOS=linux GOARCH=amd64 CGO_ENABLED=0 godep go build
+	CGO_ENABLED=0 godep go build ./...
+	CGO_ENABLED=0 godep go build
 
 sanitize:
 	hooks/check_boilerplate.sh
@@ -21,7 +21,7 @@ sanitize:
 	hooks/check_generate.sh
 
 test-unit: clean deps sanitize build
-	GOOS=linux GOARCH=amd64 godep go test --test.short -race ./... $(FLAGS)
+	godep go test --test.short -race ./... $(FLAGS)
 
 test-unit-cov: clean deps sanitize build
 	hooks/coverage.sh
